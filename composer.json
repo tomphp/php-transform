@@ -1,0 +1,21 @@
+{
+    "name": "tomphp/predicate",
+    "description": "A set tools to make array_map and array_filter more friendly.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Oram",
+            "email": "tom@x2k.co.uk"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "TomPHP\\Predicate\\": "src/"
+      }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.1"
+    }
+}
