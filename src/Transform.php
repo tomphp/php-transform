@@ -44,4 +44,20 @@ final class Transform
             return $array;
         };
     }
+
+    /**
+     * Returns a transformer calls the given callable with its value as the
+     * argument and returns the result.
+     *
+     * @param string|string[] $name Providing an array will walk multiple levels
+     *                              into the array.
+     *
+     * @return callable
+     */
+    public static function argumentTo($callable)
+    {
+        return function ($value) use ($callable) {
+            return $callable($value);
+        };
+    }
 }

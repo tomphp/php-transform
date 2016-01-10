@@ -74,7 +74,7 @@ With code like this:
 $names = array_map(Transform::callMethod('getName'), $allUsers);
 ```
 
-### Transform::callMethod
+### Transform::callMethod($methodName)
 
 ```php
 Transform::classMethod('getName');
@@ -86,8 +86,7 @@ function ($object) {
 }
 ```
 
-
-### Transform::getEntry
+### Transform::getEntry($name)
 
 ```php
 Transform::getEntry('name');
@@ -108,3 +107,22 @@ function ($array) {
     return $array['user']['name'];
 }
 ```
+
+### Transform::argumentTo($callable)
+
+```php
+Transform::getEntry('strtolower');
+
+// Generates:
+
+function ($value) {
+    return strtolower($value);
+}
+```
+
+`$callable` can be any of the following:
+
+* `'functionName'`
+* `function ($value) { /* ... */ }`
+* `[$object, 'methodName']`
+* `['ClassName', 'staticMethodName']`
