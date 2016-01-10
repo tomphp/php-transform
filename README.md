@@ -53,12 +53,11 @@ By convention: all functions starting with `is` are negated by replacing the
 p`is` with `not`, and all function staring with `has` are negated prefixing
 `not`.
 
-## Transformers
+## Transforms
 
 Transforms are for use with `array_map`.
 
-There are currently no transformers defined but they will replace code like
-this:
+Transforms are used to replace code like this:
 
 ```php
 $names = array_map(
@@ -69,8 +68,43 @@ $names = array_map(
 );
 ```
 
-With predicate, code the code will look like this:
+With code like this:
 
 ```php
-$names = array_map(Transformer::callMethod('getName'), $allUsers);
+$names = array_map(Transform::callMethod('getName'), $allUsers);
+```
+
+### Transform::callMethod
+
+```php
+Transform::classMethod('getName');
+
+// Generates:
+
+function ($object) {
+    return $object->getName;
+}
+```
+
+
+### Transform::getEntry
+
+```php
+Transform::getEntry('name');
+
+// Generates:
+
+function ($array) {
+    return $array['name'];
+}
+```
+
+```php
+Transform::getEntry(['user', 'name']);
+
+// Generates:
+
+function ($array) {
+    return $array['user']['name'];
+}
 ```

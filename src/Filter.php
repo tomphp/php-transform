@@ -3,14 +3,24 @@
 namespace TomPHP\Predicate;
 
 /**
- * @method static bool isNull()
- * @method static bool notNull()
- * @method static bool isSameAs($expected)
- * @method static bool notSameAs($expected)
- * @method static bool isLike($expected)
- * @method static bool notLike($expected)
- * @method static bool hasMethodReturning(string $methodName, $expected, bool strict = true)
- * @method static bool notHasMethodReturning(string $methodName, $expected, bool strict = true)
+ * @method static callable isNull()
+ *         Returns a filter which removes non-null values.
+ * @method static callable notNull()
+ *         Returns a filter which removes null values.
+ * @method static callable isSameAs($expected)
+ *         Returns a filter which checks if its argument is the same as $expected.
+ * @method static callable notSameAs($expected)
+ *         Returns a filter which checks if its argument is not the same as $expected.
+ * @method static callable isLike($expected)
+ *         Returns a filter which checks if its argument is like $expected.
+ * @method static callable notLike($expected)
+ *         Returns a filter whcih check if its argument is not like $expected.
+ * @method static callable hasMethodReturning(string $methodName, $expected, bool $strict = true)
+ *         Returns a filter which calls $methodName on its argument and checks the result is the same as $expected.
+ *         The $strict parameter uses == instead of === is set to Filter::NOT_STRICT.
+ * @method static callable notHasMethodReturning(string $methodName, $expected, bool strict = true)
+ *         Returns a filter which calls $methodName on its argument and checks the result is not the same as $expected.
+ *         The $strict parameter uses == instead of === is set to Filter::NOT_STRICT.
  */
 final class Filter
 {
