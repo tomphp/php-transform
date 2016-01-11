@@ -75,7 +75,7 @@ function ($array) {
 ### T\argumentTo($callable)
 
 ```php
-T\getEntry('strtolower');
+T\argumentTo('strtolower');
 
 // Generates:
 
