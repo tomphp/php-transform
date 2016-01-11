@@ -44,7 +44,7 @@ Using composer:
 
 Multiple transformations can be composed using the `chain` function:
 
-``php
+```php
 T\chain(T\getProperty('user'), T\getEntry('name'));
 
 // Is equivalent to:
