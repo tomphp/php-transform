@@ -7,6 +7,14 @@ Predicate is a collection of helper functions for common transform actions.
 
 For a great companion library of predicates to make your `array_filter` code also look great, see [Pentothal](https://github.com/Giuseppe-Mazzapica/Pentothal).
 
+## Namespace
+
+From this point on, assume the `TomPHP\Transform` namespace is used like so:
+
+```php
+use TomPHP\Transform as T;
+```
+
 ## Example
 
 Take this code:
@@ -32,21 +40,44 @@ Using composer:
 
 `composer require tomphp/transform`
 
-## Transformations
+## Chaining
 
-```php
-use TomPHP\Transform as T;
+Multiple transformations can be composed using the `chain` function:
+
+``php
+T\chain(T\getProperty('user'), T\getEntry('name'));
+
+// Is equivalent to:
+
+function ($object) {
+    return $object->user['name'];
+}
+
 ```
+
+## Transformations
 
 ### T\callMethod($methodName)
 
 ```php
 T\classMethod('getName');
 
-// Generates:
+// Is equivalent to:
 
 function ($object) {
     return $object->getName();
+}
+```
+
+### T\getProperty($name)
+
+```php
+T\getProperty('name');
+
+// Is equivalent to:
+
+function ($object) {
+    return $object->name;
 }
 ```
 
@@ -55,7 +86,7 @@ function ($object) {
 ```php
 T\getEntry('name');
 
-// Generates:
+// Is equivalent to:
 
 function ($array) {
     return $array['name'];
@@ -65,7 +96,7 @@ function ($array) {
 ```php
 T\getEntry(['user', 'name']);
 
-// Generates:
+// Is equivalent to:
 
 function ($array) {
     return $array['user']['name'];
@@ -77,7 +108,7 @@ function ($array) {
 ```php
 T\argumentTo('strtolower');
 
-// Generates:
+// Is equivalent to:
 
 function ($value) {
     return strtolower($value);

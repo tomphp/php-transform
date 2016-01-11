@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.1.1 (2016-01-11)
+
+  * Added: `getProperty($name)`
+  * Added: `chain(...$fns)`
+
 ### 0.1.0 (2016-01-11)
 
   * Changed: Rename library to `Transform`

@@ -3,6 +3,27 @@
 namespace TomPHP\Transform;
 
 /**
+ * Chains a number of arity 1 functions together, passing the output of
+ * each to the next.
+ *
+ * @param  callable[] $fns
+ *
+ * @return callable
+ */
+function chain(...$fns)
+{
+    return function ($value) use ($fns) {
+        return array_reduce(
+            $fns,
+            function ($carry, $fn) {
+                return $fn($carry);
+            },
+            $value
+        );
+    };
+}
+
+/**
  * Returns a transformer which calls $methodName on its argument and returns
  * the result.
  *
@@ -41,6 +62,23 @@ function getEntry($name)
 
         return $array;
     };
+}
+
+/**
+ * Returns a transformer which gets the value of property $name from its
+ * argument and returns the result.
+ *
+ * @param string $name
+ *
+ * @return callable
+ */
+function getProperty($name)
+{
+    if (!is_array($name)) {
+        return function ($array) use ($name) {
+            return $array[$name];
+        };
+    }
 }
 
 /**
