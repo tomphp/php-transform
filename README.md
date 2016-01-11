@@ -111,7 +111,7 @@ function ($array) {
 ### Transform::argumentTo($callable)
 
 ```php
-Transform::getEntry('strtolower');
+Transform::argumentTo('strtolower');
 
 // Generates:
 
