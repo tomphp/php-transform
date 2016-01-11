@@ -1,63 +1,15 @@
 # Predicate
 
-Predicate is a simple library which aims to make using PHP's `array_map` and
-`array_filter` functions a more pleasent experience - and resulting in cleaner
-code.
+Predicate is a simple library which aims to make using PHP's `array_map`
+function a more pleasent experience - and resulting in cleaner code.
 
-Predicate is a collection of helper functions for common filter and transform
-actions.
+Predicate is a collection of helper functions for common transform actions.
+
+For a great companion library of predicates to make your `array_filter` code also look great, see [Pentothal](https://github.com/Giuseppe-Mazzapica/Pentothal).
 
 ## Example
 
 Take this code:
-
-```php
-$customers = array_filter(
-    $allUsers,
-    function ($user) {
-        return $user->getType() === 'customer';
-    }
-);
-```
-
-Using predicate this looks like this:
-
-```php
-$customer = array_filter($allUsers, Filter::hasMethodReturning('getType', 'customer'));
-```
-
-## Installation
-
-Using composer:
-
-`composer require tomphp/predicate`
-
-## Filters
-
-All filters are defined as static methods on `TomPHP\Predicate\Filter`.
-
-So far the following filters are provided:
-
-```
-isNull()
-notNull()
-isSameAs($expected)
-notSameAs($expected)
-isLike($expected)
-notLike($expected)
-hasMethodReturning(string $methodName, $expected, bool strict = true)
-notHasMethodReturning(string $methodName, $expected, bool strict = true)
-```
-
-By convention: all functions starting with `is` are negated by replacing the
-p`is` with `not`, and all function staring with `has` are negated prefixing
-`not`.
-
-## Transforms
-
-Transforms are for use with `array_map`.
-
-Transforms are used to replace code like this:
 
 ```php
 $names = array_map(
@@ -68,16 +20,28 @@ $names = array_map(
 );
 ```
 
-With code like this:
+Using transform this looks like this:
 
 ```php
-$names = array_map(Transform::callMethod('getName'), $allUsers);
+$names = array_map(T\callMethod('getName'), $allUsers);
 ```
 
-### Transform::callMethod($methodName)
+## Installation
+
+Using composer:
+
+`composer require tomphp/transform`
+
+## Transformations
 
 ```php
-Transform::classMethod('getName');
+use TomPHP\T as T;
+```
+
+### T\callMethod($methodName)
+
+```php
+T\classMethod('getName');
 
 // Generates:
 
@@ -86,10 +50,10 @@ function ($object) {
 }
 ```
 
-### Transform::getEntry($name)
+### T\getEntry($name)
 
 ```php
-Transform::getEntry('name');
+T\getEntry('name');
 
 // Generates:
 
@@ -99,7 +63,7 @@ function ($array) {
 ```
 
 ```php
-Transform::getEntry(['user', 'name']);
+T\getEntry(['user', 'name']);
 
 // Generates:
 
@@ -108,10 +72,10 @@ function ($array) {
 }
 ```
 
-### Transform::argumentTo($callable)
+### T\argumentTo($callable)
 
 ```php
-Transform::getEntry('strtolower');
+T\getEntry('strtolower');
 
 // Generates:
 

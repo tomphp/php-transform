@@ -1,22 +1,22 @@
 <?php
 
-namespace tests\TomPHP\Predicate;
+namespace tests\TomPHP\Transform;
 
 use PHPUnit_Framework_TestCase;
-use TomPHP\Predicate\Transform;
+use TomPHP\Transform as T;
 
 final class CallMethodTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_calls_the_method_and_returns_the_value()
     {
-        $fn = Transform::callMethod('getValue');
+        $fn = T\callMethod('getValue');
 
-        $this->assertSame(123, $fn(new MethodReturning(123)));
+        $this->assertSame(123, $fn(new CallMethodExample(123)));
     }
 }
 
-class CallMethod
+class CallMethodExample
 {
     private $value;
 

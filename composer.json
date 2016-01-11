@@ -1,7 +1,15 @@
 {
-    "name": "tomphp/predicate",
+    "name": "tomphp/transform",
     "description": "A set tools to make array_map and array_filter more friendly.",
     "type": "library",
+    "keywords":          [
+      "function",
+      "functional programming",
+      "map",
+      "array_map",
+      "transform"
+    ],
+    "homepage": "https://github.com/tomphp/Transform",
     "license": "MIT",
     "authors": [
         {
@@ -10,9 +18,9 @@
         }
     ],
     "autoload": {
-      "psr-4": {
-        "TomPHP\\Predicate\\": "src/"
-      }
+      "files": [
+        "src/transform.php"
+      ]
     },
     "require": {},
     "require-dev": {
