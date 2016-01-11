@@ -1,4 +1,4 @@
-# Predicate
+# Transform
 
 Predicate is a simple library which aims to make using PHP's `array_map`
 function a more pleasent experience - and resulting in cleaner code.
