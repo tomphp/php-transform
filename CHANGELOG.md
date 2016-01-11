@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.1.2 (2016-01-11)
+
+ * Fix: Autoloader issue (case sensitive file name)
+
 ### 0.1.1 (2016-01-11)
 
   * Added: `getProperty($name)`
