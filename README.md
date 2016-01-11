@@ -35,7 +35,7 @@ Using composer:
 ## Transformations
 
 ```php
-use TomPHP\T as T;
+use TomPHP\Transform as T;
 ```
 
 ### T\callMethod($methodName)
