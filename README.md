@@ -1,7 +1,7 @@
 # Transform
 
 Predicate is a simple library which aims to make using PHP's `array_map`
-function a more pleasent experience - and resulting in cleaner code.
+function a more pleasant experience - and resulting in cleaner code.
 
 Predicate is a collection of helper functions for common transform actions.
 
@@ -46,7 +46,7 @@ T\classMethod('getName');
 // Generates:
 
 function ($object) {
-    return $object->getName;
+    return $object->getName();
 }
 ```
 
