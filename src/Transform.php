@@ -6,7 +6,7 @@ namespace TomPHP\Transform;
  * Chains a number of arity 1 functions together, passing the output of
  * each to the next.
  *
- * @param  callable[] $fns
+ * @param callable[] $fns
  *
  * @return callable
  */
