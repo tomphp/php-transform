@@ -1,5 +1,7 @@
 # Transform
 
+[![Build Status](https://travis-ci.org/tomphp/php-transform.svg?branch=master)](https://travis-ci.org/tomphp/php-transform)
+
 Predicate is a simple library which aims to make using PHP's `array_map`
 function a more pleasant experience - and resulting in cleaner code.
 
