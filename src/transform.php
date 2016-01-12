@@ -66,7 +66,7 @@ function getElement($name)
 }
 
 /**
- * Alias to getElement()
+ * Alias to getElement().
  *
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
