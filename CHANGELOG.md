@@ -1,6 +1,6 @@
 # Changelog
 
-### dev-master
+### 0.1.3 (2016-01-12)
 
   * Deprecated: `getEntry($name)`
   * Added: `getElement($name)` - previously `getEntry()`
