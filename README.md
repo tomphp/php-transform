@@ -57,7 +57,7 @@ function ($object) {
 
 ## Transformations
 
-### T\callMethod($methodName)
+### T\callMethod($methodName, ...$args)
 
 ```php
 T\classMethod('getName');
@@ -66,6 +66,16 @@ T\classMethod('getName');
 
 function ($object) {
     return $object->getName();
+}
+```
+
+```php
+T\classMethod('format', 'Y-m-d');
+
+// Is equivalent to:
+
+function ($object) {
+    return $object->format('Y-m-d');
 }
 ```
 

@@ -4,6 +4,7 @@
 
   * Deprecated: `getEntry($name)`
   * Added: `getElement($name)` - previously `getEntry()`
+  * Added: Make it possible to pass arguments to `callMethod($name, ...$args)`
 
 ### 0.1.2 (2016-01-11)
 

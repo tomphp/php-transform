@@ -14,13 +14,21 @@ final class CallMethodTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(123, $fn(new CallMethodExample(123)));
     }
+
+    /** @test */
+    public function it_calls_the_method_with_arguments()
+    {
+        $fn = T\callMethod('returnArgument', 'argument value');
+
+        $this->assertEquals('argument value', $fn(new CallMethodExample()));
+    }
 }
 
 class CallMethodExample
 {
     private $value;
 
-    public function __construct($value)
+    public function __construct($value = null)
     {
         $this->value = $value;
     }
@@ -28,5 +36,10 @@ class CallMethodExample
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function returnArgument($argument)
+    {
+        return $argument;
     }
 }

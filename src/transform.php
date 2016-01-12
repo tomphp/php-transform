@@ -28,13 +28,14 @@ function chain(...$fns)
  * the result.
  *
  * @param string $methodName
+ * @param array  $arguments
  *
  * @return callable
  */
-function callMethod($methodName)
+function callMethod($methodName, ...$args)
 {
-    return function ($object) use ($methodName) {
-        return $object->$methodName();
+    return function ($object) use ($methodName, $args) {
+        return $object->$methodName(...$args);
     };
 }
 
