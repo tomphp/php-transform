@@ -47,7 +47,7 @@ function callMethod($methodName)
  *
  * @return callable
  */
-function getEntry($name)
+function getElement($name)
 {
     if (!is_array($name)) {
         return function ($array) use ($name) {
@@ -62,6 +62,21 @@ function getEntry($name)
 
         return $array;
     };
+}
+
+/**
+ * Alias to getElement()
+ *
+ * @param string|string[] $name Providing an array will walk multiple levels
+ *                              into the array.
+ *
+ * @return callable
+ *
+ * @deprecated
+ */
+function getEntry($name)
+{
+    return getElement($name);
 }
 
 /**

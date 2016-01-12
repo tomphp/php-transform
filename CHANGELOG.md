@@ -1,5 +1,10 @@
 # Changelog
 
+### dev-master
+
+  * Deprecated: `getEntry($name)`
+  * Added: `getElement($name)` - previously `getEntry()`
+
 ### 0.1.2 (2016-01-11)
 
  * Fix: Autoloader issue (case sensitive file name)

@@ -45,7 +45,7 @@ Using composer:
 Multiple transformations can be composed using the `chain` function:
 
 ```php
-T\chain(T\getProperty('user'), T\getEntry('name'));
+T\chain(T\getProperty('user'), T\getElement('name'));
 
 // Is equivalent to:
 
@@ -81,10 +81,10 @@ function ($object) {
 }
 ```
 
-### T\getEntry($name)
+### T\getElement($name)
 
 ```php
-T\getEntry('name');
+T\getElement('name');
 
 // Is equivalent to:
 
@@ -94,7 +94,7 @@ function ($array) {
 ```
 
 ```php
-T\getEntry(['user', 'name']);
+T\getElement(['user', 'name']);
 
 // Is equivalent to:
 
