@@ -25,6 +25,7 @@
       ]
     },
     "require": {
+        "php": ">=5.6",
         "tomphp/php-standards": "^0.1.0"
     },
     "require-dev": {
@@ -45,5 +46,8 @@
         "@cs:check",
         "@test"
       ]
+    },
+    "suggest": {
+        "gmazzap/pentothal": "Predicate library which helps create nicer filters"
     }
 }
