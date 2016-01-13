@@ -100,7 +100,7 @@ function getProperty($name)
 
     return function ($array) use ($name) {
         foreach ($name as $key) {
-            $fn = getElement($key);
+            $fn = getProperty($key);
             $array = $fn($array);
         }
 
