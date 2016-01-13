@@ -10,12 +10,12 @@ namespace TomPHP\Transform;
  *
  * @return callable
  */
-function chain(...$fns)
+function chain(callable ...$fns)
 {
     return function ($value) use ($fns) {
         return array_reduce(
             $fns,
-            function ($carry, $fn) {
+            function ($carry, callable $fn) {
                 return $fn($carry);
             },
             $value
@@ -30,9 +30,16 @@ function chain(...$fns)
  * @param string $methodName
  *
  * @return callable
+ * @throws \InvalidArgumentException
  */
 function callMethod($methodName)
 {
+    if (!is_string($methodName)) {
+        throw new \InvalidArgumentException(
+            sprintf('%s expects strings as method name.', __FUNCTION__)
+        );
+    }
+
     return function ($object) use ($methodName) {
         return $object->$methodName();
     };
@@ -46,18 +53,26 @@ function callMethod($methodName)
  *                              into the array.
  *
  * @return callable
+ * @throws \InvalidArgumentException
  */
 function getEntry($name)
 {
     if (!is_array($name)) {
         return function ($array) use ($name) {
-            return $array[$name];
+            if (is_object($array) && !$array instanceof \ArrayAccess) {
+                return $array->{$name};
+            } elseif ($array instanceof \ArrayAccess || (is_array($array) && is_string($name))) {
+                return $array[$name];
+            }
+
+            throw new \InvalidArgumentException('Tried to get entry from a scalar variable.');
         };
     }
 
     return function ($array) use ($name) {
         foreach ($name as $key) {
-            $array = $array[$key];
+            $fn = getEntry($key);
+            $array = $fn($array);
         }
 
         return $array;
@@ -71,26 +86,34 @@ function getEntry($name)
  * @param string $name
  *
  * @return callable
+ * @throws \InvalidArgumentException
  */
 function getProperty($name)
 {
-    if (!is_array($name)) {
-        return function ($array) use ($name) {
-            return $array[$name];
-        };
+    if (is_array($name)) {
+        throw new \InvalidArgumentException('Tried to use variable of type array as array key.');
     }
+
+    return function ($array) use ($name) {
+        if (!is_object($array) && ! is_array($array)) {
+            throw new \InvalidArgumentException('Tried to get entry from a scalar variable.');
+        }
+
+        return $array instanceof \ArrayAccess || (is_array($array) && is_string($name))
+            ? $array[$name]
+            : $array->{$name};
+    };
 }
 
 /**
  * Returns a transformer calls the given callable with its value as the
  * argument and returns the result.
  *
- * @param string|string[] $name Providing an array will walk multiple levels
- *                              into the array.
+ * @param callable $callable
  *
  * @return callable
  */
-function argumentTo($callable)
+function argumentTo(callable $callable)
 {
     return function ($value) use ($callable) {
         return $callable($value);

@@ -14,6 +14,15 @@ final class CallMethodTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame(123, $fn(new CallMethodExample(123)));
     }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_when_argument_not_string()
+    {
+        T\callMethod(1);
+    }
 }
 
 class CallMethodExample
