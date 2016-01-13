@@ -1,6 +1,6 @@
 # Changelog
 
-### dev-master
+### 0.1.4 (2016-01-13)
 
   * Fixed: `getProperty($name)` was incorrectly implemented and tested.
   * Added: `prepend($prefix)` and `append($prefix)`
