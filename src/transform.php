@@ -2,13 +2,15 @@
 
 namespace TomPHP\Transform;
 
+use TomPHP\Transform\Exception\InvalidArgumentException;
+
 /**
  * Chains a number of arity 1 functions together, passing the output of
  * each to the next.
  *
  * @param callable[] $fns
  *
- * @return callable
+ * @return \Closure
  */
 function chain(...$fns)
 {
@@ -30,7 +32,7 @@ function chain(...$fns)
  * @param string $methodName
  * @param array  $arguments
  *
- * @return callable
+ * @return \Closure
  */
 function callMethod($methodName, ...$args)
 {
@@ -46,7 +48,7 @@ function callMethod($methodName, ...$args)
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
  *
- * @return callable
+ * @return \Closure
  */
 function getElement($name)
 {
@@ -71,7 +73,7 @@ function getElement($name)
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
  *
- * @return callable
+ * @return \Closure
  *
  * @deprecated
  */
@@ -86,7 +88,7 @@ function getEntry($name)
  *
  * @param string $name
  *
- * @return callable
+ * @return \Closure
  */
 function getProperty($name)
 {
@@ -104,11 +106,47 @@ function getProperty($name)
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
  *
- * @return callable
+ * @return \Closure
  */
 function argumentTo($callable)
 {
     return function ($value) use ($callable) {
         return $callable($value);
+    };
+}
+
+/**
+ * Returns a transformer which prepends $prefix onto its value.
+ *
+ * @param string $prefix
+ *
+ * @return void
+ */
+function prepend($prefix)
+{
+    if (!is_string($prefix)) {
+        throw InvalidArgumentException::expectedString('prefix', $prefix);
+    }
+
+    return function ($value) use ($prefix) {
+        return $prefix . $value;
+    };
+}
+
+/**
+ * Returns a transformer which appends $suffix onto its value.
+ *
+ * @param string $suffix
+ *
+ * @return \Closure
+ */
+function append($suffix)
+{
+    if (!is_string($suffix)) {
+        throw InvalidArgumentException::expectedString('suffix', $suffix);
+    }
+
+    return function ($value) use ($suffix) {
+        return $value . $suffix;
     };
 }

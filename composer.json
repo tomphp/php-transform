@@ -22,7 +22,10 @@
     "autoload": {
       "files": [
         "src/transform.php"
-      ]
+      ],
+      "psr-4": {
+        "TomPHP\\Transform\\": "src/"
+      }
     },
     "require": {
         "php": ">=5.6",

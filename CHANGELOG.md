@@ -2,7 +2,8 @@
 
 ### dev-master
 
-  * Fix: `getProperty($name)` was incorrectly implemented and tested.
+  * Fixed: `getProperty($name)` was incorrectly implemented and tested.
+  * Added: `prepend($prefix)` and `append($prefix)`
 
 ### 0.1.3 (2016-01-12)
 
@@ -12,7 +13,7 @@
 
 ### 0.1.2 (2016-01-11)
 
- * Fix: Autoloader issue (case sensitive file name)
+ * Fixed: Autoloader issue (case sensitive file name)
 
 ### 0.1.1 (2016-01-11)
 

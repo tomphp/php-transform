@@ -59,7 +59,9 @@ function ($object) {
 
 ## Transformations
 
-### T\callMethod($methodName, ...$args)
+### Object Transformations
+
+#### T\callMethod(string $methodName, mixed ...$args)
 
 ```php
 T\classMethod('getName');
@@ -81,7 +83,7 @@ function ($object) {
 }
 ```
 
-### T\getProperty($name)
+#### T\getProperty(string $name)
 
 ```php
 T\getProperty('name');
@@ -93,7 +95,9 @@ function ($object) {
 }
 ```
 
-### T\getElement($name)
+### Array Transformations
+
+#### T\getElement(string|int $name)
 
 ```php
 T\getElement('name');
@@ -115,7 +119,35 @@ function ($array) {
 }
 ```
 
-### T\argumentTo($callable)
+### String Transformations
+
+#### T\prepend(string $prefix)
+
+```php
+T\prepend('prefix: ');
+
+// Is equivalent to:
+
+function ($value) {
+    return 'prefix: ' . $value;
+}
+```
+
+#### T\append(string $suffix)
+
+```php
+T\prepend(' - suffix');
+
+// Is equivalent to:
+
+function ($value) {
+    return $value . ' - suffix';
+}
+```
+
+### Generic Transformations
+
+#### T\argumentTo(callable $callable)
 
 ```php
 T\argumentTo('strtolower');
