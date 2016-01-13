@@ -1,6 +1,6 @@
 {
     "name": "tomphp/transform",
-    "description": "A set tools to make array_map and array_filter more friendly.",
+    "description": "A set of tools to make array_map and array_filter more friendly.",
     "type": "library",
     "keywords":          [
       "function",
