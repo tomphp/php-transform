@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/tomphp/php-transform.svg?branch=master)](https://travis-ci.org/tomphp/php-transform)
 
-Predicate is a simple library which aims to make using PHP's `array_map`
+Transform is a simple library which aims to make using PHP's `array_map`
 function a more pleasant experience - and resulting in cleaner code.
 
-Predicate is a collection of helper functions for common transform actions.
+Transform is a collection of helper functions for common transform actions.
 
 For a great companion library of predicates to make your `array_filter` code also look great, see [Pentothal](https://github.com/Giuseppe-Mazzapica/Pentothal).
 
@@ -30,7 +30,7 @@ $names = array_map(
 );
 ```
 
-Using transform this looks like this:
+Using Transform this looks like this:
 
 ```php
 $names = array_map(T\callMethod('getName'), $allUsers);
