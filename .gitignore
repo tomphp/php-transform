@@ -1,2 +1,6 @@
 vendor/
+<<<<<<< HEAD
 .idea/
+=======
+.idea/
+>>>>>>> refs/remotes/origin/type-constrain

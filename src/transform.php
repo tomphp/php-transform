@@ -28,12 +28,25 @@ function chain(...$fns)
  * the result.
  *
  * @param string $methodName
+<<<<<<< HEAD
  * @param array  $arguments
+=======
+ * @param array  $args
+>>>>>>> refs/remotes/origin/type-constrain
  *
  * @return callable
  */
 function callMethod($methodName, ...$args)
 {
+<<<<<<< HEAD
+=======
+    if (!is_string($methodName)) {
+        throw new \InvalidArgumentException(
+            sprintf('%s expects strings as method name.', __FUNCTION__)
+        );
+    }
+
+>>>>>>> refs/remotes/origin/type-constrain
     return function ($object) use ($methodName, $args) {
         return $object->$methodName(...$args);
     };
@@ -58,7 +71,12 @@ function getElement($name)
 
     return function ($array) use ($name) {
         foreach ($name as $key) {
+<<<<<<< HEAD
             $array = $array[$key];
+=======
+            $fn = getElement($key);
+            $array = $fn($array);
+>>>>>>> refs/remotes/origin/type-constrain
         }
 
         return $array;
