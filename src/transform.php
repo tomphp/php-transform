@@ -120,7 +120,7 @@ function argumentTo($callable)
  *
  * @param string $prefix
  *
- * @return void
+ * @return \Closure
  */
 function prepend($prefix)
 {
@@ -129,7 +129,7 @@ function prepend($prefix)
     }
 
     return function ($value) use ($prefix) {
-        return $prefix . $value;
+        return $prefix.$value;
     };
 }
 
@@ -147,6 +147,6 @@ function append($suffix)
     }
 
     return function ($value) use ($suffix) {
-        return $value . $suffix;
+        return $value.$suffix;
     };
 }
