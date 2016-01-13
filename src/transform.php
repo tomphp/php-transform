@@ -92,7 +92,7 @@ function getProperty($name)
 {
     if (!is_array($name)) {
         return function ($array) use ($name) {
-            return $array[$name];
+            return $array->$name;
         };
     }
 }

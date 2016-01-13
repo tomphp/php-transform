@@ -1,5 +1,9 @@
 # Changelog
 
+### dev-master
+
+  * Fix: `getProperty($name)` was incorrectly implemented and tested.
+
 ### 0.1.3 (2016-01-12)
 
   * Deprecated: `getEntry($name)`
