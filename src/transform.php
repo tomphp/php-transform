@@ -28,11 +28,12 @@ function chain(callable ...$fns)
  * the result.
  *
  * @param string $methodName
+ * @param array  $args
  *
  * @return callable
  * @throws \InvalidArgumentException
  */
-function callMethod($methodName)
+function callMethod($methodName, ...$args)
 {
     if (!is_string($methodName)) {
         throw new \InvalidArgumentException(
@@ -40,8 +41,8 @@ function callMethod($methodName)
         );
     }
 
-    return function ($object) use ($methodName) {
-        return $object->$methodName();
+    return function ($object) use ($methodName, $args) {
+        return $object->$methodName(...$args);
     };
 }
 
@@ -55,7 +56,7 @@ function callMethod($methodName)
  * @return callable
  * @throws \InvalidArgumentException
  */
-function getEntry($name)
+function getElement($name)
 {
     if (!is_array($name)) {
         return function ($array) use ($name) {
@@ -71,12 +72,27 @@ function getEntry($name)
 
     return function ($array) use ($name) {
         foreach ($name as $key) {
-            $fn = getEntry($key);
+            $fn = getElement($key);
             $array = $fn($array);
         }
 
         return $array;
     };
+}
+
+/**
+ * Alias to getElement().
+ *
+ * @param string|string[] $name Providing an array will walk multiple levels
+ *                              into the array.
+ *
+ * @return callable
+ *
+ * @deprecated
+ */
+function getEntry($name)
+{
+    return getElement($name);
 }
 
 /**

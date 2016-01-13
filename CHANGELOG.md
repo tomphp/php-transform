@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.1.3 (2016-01-12)
+
+  * Deprecated: `getEntry($name)`
+  * Added: `getElement($name)` - previously `getEntry()`
+  * Added: Make it possible to pass arguments to `callMethod($name, ...$args)`
+
 ### 0.1.2 (2016-01-11)
 
  * Fix: Autoloader issue (case sensitive file name)

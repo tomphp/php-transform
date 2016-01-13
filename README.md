@@ -1,5 +1,7 @@
 # Transform
 
+[![Build Status](https://travis-ci.org/tomphp/php-transform.svg?branch=master)](https://travis-ci.org/tomphp/php-transform)
+
 Predicate is a simple library which aims to make using PHP's `array_map`
 function a more pleasant experience - and resulting in cleaner code.
 
@@ -45,7 +47,7 @@ Using composer:
 Multiple transformations can be composed using the `chain` function:
 
 ```php
-T\chain(T\getProperty('user'), T\getEntry('name'));
+T\chain(T\getProperty('user'), T\getElement('name'));
 
 // Is equivalent to:
 
@@ -57,7 +59,7 @@ function ($object) {
 
 ## Transformations
 
-### T\callMethod($methodName)
+### T\callMethod($methodName, ...$args)
 
 ```php
 T\classMethod('getName');
@@ -66,6 +68,16 @@ T\classMethod('getName');
 
 function ($object) {
     return $object->getName();
+}
+```
+
+```php
+T\classMethod('format', 'Y-m-d');
+
+// Is equivalent to:
+
+function ($object) {
+    return $object->format('Y-m-d');
 }
 ```
 
@@ -81,10 +93,10 @@ function ($object) {
 }
 ```
 
-### T\getEntry($name)
+### T\getElement($name)
 
 ```php
-T\getEntry('name');
+T\getElement('name');
 
 // Is equivalent to:
 
@@ -94,7 +106,7 @@ function ($array) {
 ```
 
 ```php
-T\getEntry(['user', 'name']);
+T\getElement(['user', 'name']);
 
 // Is equivalent to:
 
