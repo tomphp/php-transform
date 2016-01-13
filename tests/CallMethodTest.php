@@ -17,20 +17,14 @@ final class CallMethodTest extends PHPUnit_Framework_TestCase
 
     /** @test */
     public function it_calls_the_method_with_arguments()
-<<<<<<< HEAD
-=======
     {
         $fn = T\callMethod('returnArgument', 'argument value');
 
         $this->assertEquals('argument value', $fn(new CallMethodExample()));
     }
 
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     */
+    /** @test */
     public function it_throws_exception_when_argument_not_string()
->>>>>>> refs/remotes/origin/type-constrain
     {
         $fn = T\callMethod('returnArgument', 'argument value');
 
