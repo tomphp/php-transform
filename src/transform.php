@@ -26,6 +26,16 @@ function chain(...$fns)
 }
 
 /**
+ * Returns a Builder instance.
+ *
+ * @return Builder
+ */
+function __()
+{
+    return new Builder();
+}
+
+/**
  * Returns a transformer which calls $methodName on its argument and returns
  * the result.
  *

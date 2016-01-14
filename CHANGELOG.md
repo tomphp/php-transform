@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.1.5 (2016-01-14)
+
+  * Added: `Builder` for prettier object/array traversal.
+  * Added: `__()` to create a builder instance.
+
 ### 0.1.4 (2016-01-13)
 
   * Fixed: `getProperty($name)` was incorrectly implemented and tested.

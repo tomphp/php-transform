@@ -57,6 +57,31 @@ function ($object) {
 
 ```
 
+## The Traversal Builder
+
+If you want to chain together a collection of `callMethod`, `getProperty` and
+`getElement` calls, the `__()` function provides a builder to write this in
+a more elegant way.
+
+Consider:
+
+```php
+$dobs = array_map(
+    function (User $user) {
+        return $user->getMetaData()['dob']->format('Y-m-d');
+    },
+    $users
+);
+```
+
+With the builder you can simply write:
+
+```php
+use function TomPHP\Transform\__;
+
+$dobs = array_map(__()->getMetaData()['dob']->format('Y-m-d'), $users);
+```
+
 ## Transformations
 
 ### Object Transformations

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\TomPHP\Transform;
+namespace tests\TomPHP\Transform\Exception;
 
 use PHPUnit_Framework_TestCase;
 use TomPHP\Transform\Exception\Exception;
