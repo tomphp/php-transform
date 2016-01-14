@@ -172,7 +172,7 @@ function ($value) {
 
 ### Generic Transformations
 
-#### T\argumentTo(callable $callable)
+#### T\argumentTo(callable $callable, array $argments = [__])
 
 ```php
 T\argumentTo('strtolower');
@@ -184,9 +184,17 @@ function ($value) {
 }
 ```
 
-`$callable` can be any of the following:
+You can also provide a list of arguments using `__` as the placeholder for where
+you want the value inserted:
 
-* `'functionName'`
-* `function ($value) { /* ... */ }`
-* `[$object, 'methodName']`
-* `['ClassName', 'staticMethodName']`
+```php
+use const TomPHP\Transform\__;
+
+T\argumentTo('strpos', ['Tom: My name is Tom', __, 4]);
+
+// Is equivalent to:
+
+function ($value) {
+    return strpos('Tom: My name is Tom', $value, 4);
+}
+```

@@ -4,6 +4,7 @@ namespace tests\TomPHP\Transform;
 
 use PHPUnit_Framework_TestCase;
 use TomPHP\Transform as T;
+use const TomPHP\Transform\__;
 
 final class ArgumentToTest extends PHPUnit_Framework_TestCase
 {
@@ -39,6 +40,14 @@ final class ArgumentToTest extends PHPUnit_Framework_TestCase
         $fn = T\argumentTo([__CLASS__, 'staticDecrement']);
 
         $this->assertSame(3, $fn(4));
+    }
+
+    /** @test */
+    public function it_calls_a_function_with_a_positional_argument()
+    {
+        $fn = T\argumentTo('strpos', ['Tom: My name is Tom', __, 4]);
+
+        $this->assertSame(16, $fn('Tom'));
     }
 
     /**

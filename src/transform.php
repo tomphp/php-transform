@@ -5,6 +5,11 @@ namespace TomPHP\Transform;
 use TomPHP\Transform\Exception\InvalidArgumentException;
 
 /**
+ * Represents a placeholder in an argument list.
+ */
+const __ = 'Super Unique Placeholder String - 6f74f07a-bc60-494a-93e0-eefedb69849b';
+
+/**
  * Chains a number of arity 1 functions together, passing the output of
  * each to the next.
  *
@@ -113,15 +118,23 @@ function getProperty($name)
  * Returns a transformer calls the given callable with its value as the
  * argument and returns the result.
  *
- * @param string|string[] $name Providing an array will walk multiple levels
- *                              into the array.
+ * @param callable $name      Providing an array will walk multiple levels into
+ *                            the array.
+ * @param mixed[]  $arguments Use __ to indicate where the value should be
+ *                            placed in the argument list.
  *
  * @return \Closure
  */
-function argumentTo($callable)
+function argumentTo(callable $callable, array $arguments = [__])
 {
-    return function ($value) use ($callable) {
-        return $callable($value);
+    return function ($value) use ($callable, $arguments) {
+        $arguments = array_map(
+            function ($arg) use ($value) {
+                return $arg === __ ? $value : $arg;
+            },
+            $arguments
+        );
+        return $callable(...$arguments);
     };
 }
 
