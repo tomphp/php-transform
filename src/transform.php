@@ -134,6 +134,7 @@ function argumentTo(callable $callable, array $arguments = [__])
             },
             $arguments
         );
+
         return $callable(...$arguments);
     };
 }
