@@ -2,14 +2,12 @@
 
 namespace TomPHP\Transform\Exception;
 
-
 trait ActualToStringTrait
 {
-
     /**
      * Return human readable string representation of a variable.
      *
-     * @param mixed $actual
+     * @param  mixed  $actual
      * @return string
      */
     private static function actualToString($actual)
@@ -19,7 +17,7 @@ trait ActualToStringTrait
         }
 
         if (is_object($actual)) {
-            return 'instance of ' . get_class($actual);
+            return 'instance of '.get_class($actual);
         }
 
         return sprintf('%s', $actual);

@@ -2,10 +2,8 @@
 
 namespace TomPHP\Transform\Exception;
 
-
 trait ExpectedStringTrait
 {
-
     /**
      * @param string $variable
      * @param mixed  $actual

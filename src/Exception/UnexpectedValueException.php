@@ -9,8 +9,8 @@ class UnexpectedValueException extends \UnexpectedValueException implements Exce
     use ExpectedObjectTrait;
 
     /**
-     * @param object|string $object
-     * @param string $method
+     * @param  object|string                                        $object
+     * @param  string                                               $method
      * @return \TomPHP\Transform\Exception\InvalidArgumentException
      */
     public static function expectedMethod($object, $method)
