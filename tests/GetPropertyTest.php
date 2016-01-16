@@ -15,6 +15,6 @@ final class GetPropertyTest extends PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->name = 'Tom';
 
-        $this->assertSame('Tom', $fn(['name' => 'Tom']));
+        $this->assertSame('Tom', $fn($object));
     }
 }

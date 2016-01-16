@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/tomphp/php-transform.svg?branch=master)](https://travis-ci.org/tomphp/php-transform)
 
-Predicate is a simple library which aims to make using PHP's `array_map`
+Transform is a simple library which aims to make using PHP's `array_map`
 function a more pleasant experience - and resulting in cleaner code.
 
-Predicate is a collection of helper functions for common transform actions.
+Transform is a collection of helper functions for common transform actions.
 
 For a great companion library of predicates to make your `array_filter` code also look great, see [Pentothal](https://github.com/Giuseppe-Mazzapica/Pentothal).
 
@@ -30,7 +30,7 @@ $names = array_map(
 );
 ```
 
-Using transform this looks like this:
+Using Transform this looks like this:
 
 ```php
 $names = array_map(T\callMethod('getName'), $allUsers);
@@ -57,9 +57,36 @@ function ($object) {
 
 ```
 
+## The Traversal Builder
+
+If you want to chain together a collection of `callMethod`, `getProperty` and
+`getElement` calls, the `__()` function provides a builder to write this in
+a more elegant way.
+
+Consider:
+
+```php
+$dobs = array_map(
+    function (User $user) {
+        return $user->getMetaData()['dob']->format('Y-m-d');
+    },
+    $users
+);
+```
+
+With the builder you can simply write:
+
+```php
+use function TomPHP\Transform\__;
+
+$dobs = array_map(__()->getMetaData()['dob']->format('Y-m-d'), $users);
+```
+
 ## Transformations
 
-### T\callMethod($methodName, ...$args)
+### Object Transformations
+
+#### T\callMethod(string $methodName, mixed ...$args)
 
 ```php
 T\classMethod('getName');
@@ -81,7 +108,7 @@ function ($object) {
 }
 ```
 
-### T\getProperty($name)
+#### T\getProperty(string $name)
 
 ```php
 T\getProperty('name');
@@ -93,7 +120,9 @@ function ($object) {
 }
 ```
 
-### T\getElement($name)
+### Array Transformations
+
+#### T\getElement(string|int $name)
 
 ```php
 T\getElement('name');
@@ -115,7 +144,35 @@ function ($array) {
 }
 ```
 
-### T\argumentTo($callable)
+### String Transformations
+
+#### T\prepend(string $prefix)
+
+```php
+T\prepend('prefix: ');
+
+// Is equivalent to:
+
+function ($value) {
+    return 'prefix: ' . $value;
+}
+```
+
+#### T\append(string $suffix)
+
+```php
+T\prepend(' - suffix');
+
+// Is equivalent to:
+
+function ($value) {
+    return $value . ' - suffix';
+}
+```
+
+### Generic Transformations
+
+#### T\argumentTo(callable $callable, array $argments = [__])
 
 ```php
 T\argumentTo('strtolower');
@@ -127,9 +184,17 @@ function ($value) {
 }
 ```
 
-`$callable` can be any of the following:
+You can also provide a list of arguments using `__` as the placeholder for where
+you want the value inserted:
 
-* `'functionName'`
-* `function ($value) { /* ... */ }`
-* `[$object, 'methodName']`
-* `['ClassName', 'staticMethodName']`
+```php
+use const TomPHP\Transform\__;
+
+T\argumentTo('strpos', ['Tom: My name is Tom', __, 4]);
+
+// Is equivalent to:
+
+function ($value) {
+    return strpos('Tom: My name is Tom', $value, 4);
+}
+```

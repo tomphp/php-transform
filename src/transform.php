@@ -2,13 +2,20 @@
 
 namespace TomPHP\Transform;
 
+use TomPHP\Transform\Exception\InvalidArgumentException;
+
+/**
+ * Represents a placeholder in an argument list.
+ */
+const __ = 'Super Unique Placeholder String - 6f74f07a-bc60-494a-93e0-eefedb69849b';
+
 /**
  * Chains a number of arity 1 functions together, passing the output of
  * each to the next.
  *
  * @param callable[] $fns
  *
- * @return callable
+ * @return \Closure
  */
 function chain(...$fns)
 {
@@ -24,13 +31,23 @@ function chain(...$fns)
 }
 
 /**
+ * Returns a Builder instance.
+ *
+ * @return Builder
+ */
+function __()
+{
+    return new Builder();
+}
+
+/**
  * Returns a transformer which calls $methodName on its argument and returns
  * the result.
  *
  * @param string $methodName
  * @param array  $arguments
  *
- * @return callable
+ * @return \Closure
  */
 function callMethod($methodName, ...$args)
 {
@@ -46,7 +63,7 @@ function callMethod($methodName, ...$args)
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
  *
- * @return callable
+ * @return \Closure
  */
 function getElement($name)
 {
@@ -71,7 +88,7 @@ function getElement($name)
  * @param string|string[] $name Providing an array will walk multiple levels
  *                              into the array.
  *
- * @return callable
+ * @return \Closure
  *
  * @deprecated
  */
@@ -86,13 +103,13 @@ function getEntry($name)
  *
  * @param string $name
  *
- * @return callable
+ * @return \Closure
  */
 function getProperty($name)
 {
     if (!is_array($name)) {
         return function ($array) use ($name) {
-            return $array[$name];
+            return $array->$name;
         };
     }
 }
@@ -101,14 +118,59 @@ function getProperty($name)
  * Returns a transformer calls the given callable with its value as the
  * argument and returns the result.
  *
- * @param string|string[] $name Providing an array will walk multiple levels
- *                              into the array.
+ * @param callable $name      Providing an array will walk multiple levels into
+ *                            the array.
+ * @param mixed[]  $arguments Use __ to indicate where the value should be
+ *                            placed in the argument list.
  *
- * @return callable
+ * @return \Closure
  */
-function argumentTo($callable)
+function argumentTo(callable $callable, array $arguments = [__])
 {
-    return function ($value) use ($callable) {
-        return $callable($value);
+    return function ($value) use ($callable, $arguments) {
+        $arguments = array_map(
+            function ($arg) use ($value) {
+                return $arg === __ ? $value : $arg;
+            },
+            $arguments
+        );
+
+        return $callable(...$arguments);
+    };
+}
+
+/**
+ * Returns a transformer which prepends $prefix onto its value.
+ *
+ * @param string $prefix
+ *
+ * @return \Closure
+ */
+function prepend($prefix)
+{
+    if (!is_string($prefix)) {
+        throw InvalidArgumentException::expectedString('prefix', $prefix);
+    }
+
+    return function ($value) use ($prefix) {
+        return $prefix.$value;
+    };
+}
+
+/**
+ * Returns a transformer which appends $suffix onto its value.
+ *
+ * @param string $suffix
+ *
+ * @return \Closure
+ */
+function append($suffix)
+{
+    if (!is_string($suffix)) {
+        throw InvalidArgumentException::expectedString('suffix', $suffix);
+    }
+
+    return function ($value) use ($suffix) {
+        return $value.$suffix;
     };
 }

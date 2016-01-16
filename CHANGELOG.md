@@ -1,5 +1,19 @@
 # Changelog
 
+### 0.1.6 (2016-01-14)
+
+  * Added: Argument list for `argumentTo($callable, $arguments)`
+
+### 0.1.5 (2016-01-14)
+
+  * Added: `Builder` for prettier object/array traversal.
+  * Added: `__()` to create a builder instance.
+
+### 0.1.4 (2016-01-13)
+
+  * Fixed: `getProperty($name)` was incorrectly implemented and tested.
+  * Added: `prepend($prefix)` and `append($prefix)`
+
 ### 0.1.3 (2016-01-12)
 
   * Deprecated: `getEntry($name)`
@@ -8,7 +22,7 @@
 
 ### 0.1.2 (2016-01-11)
 
- * Fix: Autoloader issue (case sensitive file name)
+ * Fixed: Autoloader issue (case sensitive file name)
 
 ### 0.1.1 (2016-01-11)
 
