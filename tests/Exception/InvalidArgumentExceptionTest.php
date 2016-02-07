@@ -26,7 +26,7 @@ final class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         $exception = InvalidArgumentException::expectedString('param', 101);
 
         $this->assertEquals(
-            '$param was expected to be a string; got 101',
+            '$param was expected to be a string; got 101.',
             $exception->getMessage()
         );
     }
@@ -37,7 +37,7 @@ final class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
         $exception = InvalidArgumentException::expectedString('param', new \stdClass());
 
         $this->assertEquals(
-            '$param was expected to be a string; got stdClass',
+            '$param was expected to be a string; got instance of stdClass.',
             $exception->getMessage()
         );
     }
