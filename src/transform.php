@@ -47,7 +47,9 @@ function __()
  *
  * @param string $methodName
  * @param array  $args
+ *
  * @return \Closure
+ *
  * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
  */
 function callMethod($methodName, ...$args)
@@ -154,7 +156,9 @@ function argumentTo(callable $callable, array $arguments = [__])
  * Returns a transformer which prepends $prefix onto its value.
  *
  * @param string $prefix
+ *
  * @return \Closure
+ *
  * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
  */
 function prepend($prefix)
@@ -164,7 +168,7 @@ function prepend($prefix)
     }
 
     return function ($value) use ($prefix) {
-        if (!is_string($value) && ! (is_object($value) && method_exists($value, '__toString'))) {
+        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
             throw UnexpectedValueException::expectedString('value', $value);
         }
 
@@ -176,7 +180,9 @@ function prepend($prefix)
  * Returns a transformer which appends $suffix onto its value.
  *
  * @param string $suffix
+ *
  * @return \Closure
+ *
  * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
  */
 function append($suffix)
@@ -186,7 +192,7 @@ function append($suffix)
     }
 
     return function ($value) use ($suffix) {
-        if (!is_string($value) && ! (is_object($value) && method_exists($value, '__toString'))) {
+        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
             throw UnexpectedValueException::expectedString('value', $value);
         }
 

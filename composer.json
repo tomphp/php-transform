@@ -44,6 +44,12 @@
         "phpcs --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml tests",
         "php-cs-fixer fix --verbose --dry-run tests"
       ],
+      "cs:fix": [
+        "phpcbf --standard=psr2 src",
+        "php-cs-fixer fix --verbose src",
+        "phpcbf --standard=vendor/tomphp/php-standards/ruleset-for-tests.xml tests",
+        "php-cs-fixer fix --verbose tests"
+      ],
       "test": "phpunit",
       "ci": [
         "@cs:check",

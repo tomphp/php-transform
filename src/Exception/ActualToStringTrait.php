@@ -7,7 +7,8 @@ trait ActualToStringTrait
     /**
      * Return human readable string representation of a variable.
      *
-     * @param  mixed  $actual
+     * @param mixed $actual
+     *
      * @return string
      */
     private static function actualToString($actual)
