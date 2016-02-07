@@ -4,7 +4,6 @@ namespace TomPHP\Transform;
 
 use TomPHP\Transform\Exception\InvalidArgumentException;
 use TomPHP\Transform\Exception\UnexpectedValueException;
-use TomPHP\Transform\Exception\MethodNotImplementedException;
 
 /**
  * Represents a placeholder in an argument list.
