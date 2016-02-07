@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.0 (2016-02-07)
+
+  * Added: Type checking with exceptions thrown on error.
+
 ### 0.1.6 (2016-01-14)
 
   * Added: Argument list for `argumentTo($callable, $arguments)`

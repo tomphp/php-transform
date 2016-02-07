@@ -16,7 +16,7 @@ class UnexpectedValueException extends \UnexpectedValueException implements Exce
      */
     public static function expectedMethod($object, $method)
     {
-        is_object($object) and $object = get_class($object);
+        is_object($object) && $object = get_class($object);
 
         return new self(sprintf(
             '"%s::%s() is not a valid method."',

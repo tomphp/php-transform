@@ -4,6 +4,7 @@ namespace TomPHP\Transform;
 
 use TomPHP\Transform\Exception\InvalidArgumentException;
 use TomPHP\Transform\Exception\UnexpectedValueException;
+use TomPHP\Transform\Exception\MethodNotImplementedException;
 
 /**
  * Represents a placeholder in an argument list.
@@ -61,8 +62,10 @@ function callMethod($methodName, ...$args)
     return function ($object) use ($methodName, $args) {
         if (!is_object($object)) {
             throw UnexpectedValueException::expectedObject('object', $object);
-        } elseif (!method_exists($object, $methodName)) {
-            throw  UnexpectedValueException::expectedObject($object, $methodName);
+        }
+
+        if (!method_exists($object, $methodName)) {
+            throw UnexpectedValueException::expectedMethod($object, $methodName);
         }
 
         return $object->$methodName(...$args);
@@ -168,7 +171,7 @@ function prepend($prefix)
     }
 
     return function ($value) use ($prefix) {
-        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+        if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
             throw UnexpectedValueException::expectedString('value', $value);
         }
 
@@ -192,7 +195,7 @@ function append($suffix)
     }
 
     return function ($value) use ($suffix) {
-        if (!is_string($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+        if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
             throw UnexpectedValueException::expectedString('value', $value);
         }
 
