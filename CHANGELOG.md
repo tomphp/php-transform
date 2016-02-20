@@ -1,61 +1,71 @@
 # Changelog
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](http://semver.org/).<Paste>
 
-### 0.2.0 (2016-02-07)
+## [Unreleased]
 
-  * Added: Type checking with exceptions thrown on error.
+## [0.2.0] - 2016-02-07
+### Added
+- Type checking with exceptions thrown on error.
 
-### 0.1.6 (2016-01-14)
+## [0.1.6] - 2016-01-14
+### Added
+- Argument list for `argumentTo($callable, $arguments)`.
 
-  * Added: Argument list for `argumentTo($callable, $arguments)`
+## [0.1.5] - 2016-01-14
+### Added
+- `Builder` for prettier object/array traversal.
+- `__()` to create a builder instance.
 
-### 0.1.5 (2016-01-14)
+## [0.1.4] - 2016-01-13
+### Added
+- `prepend($prefix)` and `append($prefix)`.
 
-  * Added: `Builder` for prettier object/array traversal.
-  * Added: `__()` to create a builder instance.
+### Fixed
+- `getProperty($name)` was incorrectly implemented and tested.
 
-### 0.1.4 (2016-01-13)
+## [0.1.3] - 2016-01-12
+### Added
+- `getElement($name)` - previously `getEntry()`.
+- Make it possible to pass arguments to `callMethod($name, ...$args)`.
 
-  * Fixed: `getProperty($name)` was incorrectly implemented and tested.
-  * Added: `prepend($prefix)` and `append($prefix)`
+### Deprecated
+- `getEntry($name)`.
 
-### 0.1.3 (2016-01-12)
+## [0.1.2] - 2016-01-11
+### Fixed
+- Autoloader issue (case sensitive file name).
 
-  * Deprecated: `getEntry($name)`
-  * Added: `getElement($name)` - previously `getEntry()`
-  * Added: Make it possible to pass arguments to `callMethod($name, ...$args)`
+## [0.1.1] - 2016-01-11
+### Added
+- `getProperty($name)`.
+- `chain(...$fns)`.
 
-### 0.1.2 (2016-01-11)
+## [0.1.0] - 2016-01-11
+### Changed
+- Rename library to `Transform`.
+- Use function instead of static methods.
 
- * Fixed: Autoloader issue (case sensitive file name)
+### Removed
+- `Filter::isNull()`.
+- `Filter::notNull()`.
+- `Filter::isSameAs($expected)`.
+- `Filter::notSameAs($expected)`.
+- `Filter::isLike($expected)`.
+- `Filter::notLike($expected)`.
+- `Filter::hasMethodReturning(string $methodName, $expected, bool $strict = true)`.
+- `Filter::notHasMethodReturning(string $methodName, $expected, bool strict = true)`.
 
-### 0.1.1 (2016-01-11)
-
-  * Added: `getProperty($name)`
-  * Added: `chain(...$fns)`
-
-### 0.1.0 (2016-01-11)
-
-  * Changed: Rename library to `Transform`
-  * Changed: Use function instead of static methods
-  * Removed: `Filter::isNull()`
-  * Removed: `Filter::notNull()`
-  * Removed: `Filter::isSameAs($expected)`
-  * Removed: `Filter::notSameAs($expected)`
-  * Removed: `Filter::isLike($expected)`
-  * Removed: `Filter::notLike($expected)`
-  * Removed: `Filter::hasMethodReturning(string $methodName, $expected, bool $strict = true)`
-  * Removed: `Filter::notHasMethodReturning(string $methodName, $expected, bool strict = true)`
-
-### 0.0.1 (2016-01-10)
-
-  * Added: `Filter::isNull()`
-  * Added: `Filter::notNull()`
-  * Added: `Filter::isSameAs($expected)`
-  * Added: `Filter::notSameAs($expected)`
-  * Added: `Filter::isLike($expected)`
-  * Added: `Filter::notLike($expected)`
-  * Added: `Filter::hasMethodReturning(string $methodName, $expected, bool $strict = true)`
-  * Added: `Filter::notHasMethodReturning(string $methodName, $expected, bool strict = true)`
-  * Added: `Transform::callMethod(string $methodName)`
-  * Added: `Transform::getEntry(string|string[] $name)`
-  * Added: `Transform::argumentTo(callable $callable)`
+## [0.0.1] - 2016-01-10
+### Added
+- `Filter::isNull()`.
+- `Filter::notNull()`.
+- `Filter::isSameAs($expected)`.
+- `Filter::notSameAs($expected)`.
+- `Filter::isLike($expected)`.
+- `Filter::notLike($expected)`.
+- `Filter::hasMethodReturning(string $methodName, $expected, bool $strict = true)`.
+- `Filter::notHasMethodReturning(string $methodName, $expected, bool strict = true)`.
+- `Transform::callMethod(string $methodName)`.
+- `Transform::getEntry(string|string[] $name)`.
+- `Transform::argumentTo(callable $callable)`.
