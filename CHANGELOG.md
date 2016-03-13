@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).<Paste>
 
 ## [Unreleased]
 
+## [0.2.1] - 2016-03-13
+### Added
+- `callStatic`
+
 ## [0.2.0] - 2016-02-07
 ### Added
 - Type checking with exceptions thrown on error.
