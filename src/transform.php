@@ -71,6 +71,41 @@ function callMethod($methodName, ...$args)
     };
 }
 
+function callStatic($methodName, ...$args)
+{
+    if (!is_string($methodName)) {
+        throw InvalidArgumentException::expectedString('methodName', $methodName);
+    }
+
+    return function ($objectOrClass) use ($methodName, $args) {
+
+        if (is_object($objectOrClass)) {
+            $reflectedClass = new \ReflectionObject($objectOrClass);
+            $subjectObject = $objectOrClass;
+        } else {
+            if (!class_exists($objectOrClass)) {
+                throw InvalidArgumentException::expectedValidClassName($objectOrClass);
+            }
+
+            $reflectedClass = new \ReflectionClass($objectOrClass);
+            $subjectObject = null;
+        }
+
+        if (!$reflectedClass->hasMethod($methodName)) {
+            throw UnexpectedValueException::expectedMethod($reflectedClass->getName(), $methodName);
+        }
+
+        $methodToCall = $reflectedClass->getMethod($methodName);
+        if (!$methodToCall->isStatic()) {
+            throw UnexpectedValueException::expectedStaticMethod($reflectedClass->getName(), $methodName);
+        } elseif (!$methodToCall->isPublic()) {
+            throw UnexpectedValueException::expectedPublicMethod($reflectedClass->getName(), $methodName);
+        }
+
+        return $methodToCall->invokeArgs($subjectObject, $args);
+    };
+}
+
 /**
  * Returns a transformer which fetches index $name from its argument and
  * returns the result.

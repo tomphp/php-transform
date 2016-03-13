@@ -7,4 +7,5 @@ class InvalidArgumentException extends \InvalidArgumentException implements Exce
     use ActualToStringTrait;
     use ExpectedStringTrait;
     use ExpectedObjectTrait;
+    use InvalidClassTrait;
 }

@@ -108,6 +108,22 @@ function ($object) {
 }
 ```
 
+#### T\callStatic(string $methodName, mixed ...$args)
+```php
+T\callStatic('getSomethingWith', 'param1', 'param2');
+
+// Is equivalent to:
+
+function ($object) {
+    return $object::getSomethingWith('param1', 'param2');
+}
+
+// or to:
+function ($classAsString) {
+    return $classAsString::getSomethingWith('param1', 'param2');
+}
+```
+
 #### T\getProperty(string $name)
 
 ```php

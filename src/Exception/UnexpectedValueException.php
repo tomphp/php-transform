@@ -7,21 +7,19 @@ class UnexpectedValueException extends \UnexpectedValueException implements Exce
     use ActualToStringTrait;
     use ExpectedStringTrait;
     use ExpectedObjectTrait;
+    use ExpectedStaticMethodTrait;
+    use ExpectedPublicMethodTrait;
+    use ExpectedMethodTrait;
 
-    /**
-     * @param object|string $object
-     * @param string        $method
-     *
-     * @return \TomPHP\Transform\Exception\InvalidArgumentException
-     */
-    public static function expectedMethod($object, $method)
+    private static function buildException($object, $method, $message)
     {
-        is_object($object) && $object = get_class($object);
+        $object = is_object($object) ? get_class($object) : $object;
 
         return new self(sprintf(
-            '"%s::%s() is not a valid method."',
+            '"%s::%s() %s"',
             self::actualToString($object),
-            self::actualToString($method)
+            self::actualToString($method),
+            $message
         ));
     }
 }
