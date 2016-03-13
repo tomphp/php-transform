@@ -71,6 +71,18 @@ function callMethod($methodName, ...$args)
     };
 }
 
+/**
+ * Returns a transformer which calls $methodName statically on its argument and
+ * returns the result.
+ *
+ * @param string $methodName
+ * @param array  $args
+ *
+ * @return \Closure
+ *
+ * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ * @throws \TomPHP\Transform\Exception\UnexpectedValueException
+ */
 function callStatic($methodName, ...$args)
 {
     if (!is_string($methodName)) {
