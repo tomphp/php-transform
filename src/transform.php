@@ -248,3 +248,36 @@ function append($suffix)
         return $value.$suffix;
     };
 }
+
+/**
+ * Returns a transformer which instantiates a $className object on its arguments and
+ * returns the result.
+ *
+ * @param string $className
+ * @param array  $arguments Use __ to indicate where the value should be
+ *                          placed in the argument list.
+ *
+ * @return \Closure
+ *
+ * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ */
+function newInstance($className, array $arguments = [__])
+{
+    if (!is_string($className)) {
+        throw InvalidArgumentException::expectedString('className', $className);
+    }
+    if (!class_exists($className)) {
+        throw InvalidArgumentException::expectedValidClassName($className);
+    }
+
+    return function ($value) use ($className, $arguments) {
+        $arguments = array_map(
+            function ($arg) use ($value) {
+                return $arg === __ ? $value : $arg;
+            },
+            $arguments
+        );
+
+        return new $className(...$arguments);
+    };
+}
