@@ -214,3 +214,30 @@ function ($value) {
     return strpos('Tom: My name is Tom', $value, 4);
 }
 ```
+
+#### T\newInstance(string $className, array $arguments = [__])
+
+```php
+T\newInstance(Widget::class);
+
+// Is equivalent to:
+
+function ($value) {
+    return new Widget($value);
+}
+```
+
+You can also provide a list of arguments using `__` as the placeholder for where
+you want the value inserted:
+
+```php
+use const TomPHP\Transform\__;
+
+T\newInstance(Widget, ['first', __, 'last']);
+
+// Is equivalent to:
+
+function ($value) {
+    return new Widget('first', $value, 'last');
+}
+```

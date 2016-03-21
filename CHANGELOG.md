@@ -4,9 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).<Paste>
 
 ## [Unreleased]
 
+## [0.2.2] - 2016-03-18
+### Added
+- `newInstance()`
+
 ## [0.2.1] - 2016-03-13
 ### Added
-- `callStatic`
+- `callStatic()`
 
 ## [0.2.0] - 2016-02-07
 ### Added
