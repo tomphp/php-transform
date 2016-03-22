@@ -252,6 +252,22 @@ function append($suffix)
 }
 
 /**
+ * Returns a transformer which concatenates all it's arguments together.
+ *
+ * @param string[] ...$arguments
+ *
+ * @return \Closure
+ */
+function concat(...$arguments)
+{
+    return function ($value) use ($arguments) {
+        $arguments = substituteArguments($arguments, $value);
+
+        return implode('', $arguments);
+    };
+}
+
+/**
  * Returns a transformer which instantiates a $className object on its arguments and
  * returns the result.
  *
@@ -282,4 +298,22 @@ function newInstance($className, array $arguments = [__])
 
         return new $className(...$arguments);
     };
+}
+
+/**
+ * @internal
+ *
+ * @param array $arguments
+ * @param mixed $value
+ *
+ * @return array
+ */
+function substituteArguments(array $arguments, $value)
+{
+    return array_map(
+        function ($arg) use ($value) {
+            return $arg === __ ? $value : $arg;
+        },
+        $arguments
+    );
 }

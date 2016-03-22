@@ -186,6 +186,22 @@ function ($value) {
 }
 ```
 
+#### T\concat(...$arguments)
+
+Use `__` as the placeholder for where you want the value inserted:
+
+```php
+use const TomPHP\Transform\__;
+
+T\concat('Hello ', __, '!');
+
+// Is equivilent to:
+
+function ($value) {
+    return 'Hello ' . $value . '!';
+}
+```
+
 ### Generic Transformations
 
 #### T\argumentTo(callable $callable, array $argments = [__])
