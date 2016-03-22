@@ -177,7 +177,7 @@ function ($value) {
 #### T\append(string $suffix)
 
 ```php
-T\prepend(' - suffix');
+T\append(' - suffix');
 
 // Is equivalent to:
 
