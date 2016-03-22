@@ -50,7 +50,8 @@ function __()
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
+ * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ * @throws \TomPHP\Transform\Exception\UnexpectedValueException
  */
 function callMethod($methodName, ...$args)
 {
@@ -208,7 +209,8 @@ function argumentTo(callable $callable, array $arguments = [__])
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
+ * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ * @throws \TomPHP\Transform\Exception\UnexpectedValueException
  */
 function prepend($prefix)
 {
@@ -232,7 +234,7 @@ function prepend($prefix)
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\ExpectedStringTrait
+ * @throws \TomPHP\Transform\Exception\InvalidArgumentException
  */
 function append($suffix)
 {
