@@ -4,8 +4,6 @@ namespace tests\TomPHP\Transform;
 
 use PHPUnit_Framework_TestCase;
 use TomPHP\Transform as T;
-use TomPHP\Transform\Exception\InvalidArgumentException;
-use TomPHP\Transform\Exception\UnexpectedValueException;
 use const TomPHP\Transform\__;
 
 final class ConcatTest extends PHPUnit_Framework_TestCase

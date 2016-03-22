@@ -308,8 +308,8 @@ function assertArgumentIsString($name, $value)
 /**
  * @internal
  *
- * @param  string $name
- * @param  mixed $value
+ * @param string $name
+ * @param mixed  $value
  *
  * @throws UnexpectedValueException
  */
@@ -323,7 +323,7 @@ function assertArgumentIsStringable($name, $value)
 /**
  * @internal
  *
- * @param  string $className
+ * @param string $className
  *
  * @throws InvalidArgumentException
  */
