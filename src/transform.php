@@ -50,14 +50,12 @@ function __()
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\InvalidArgumentException
- * @throws \TomPHP\Transform\Exception\UnexpectedValueException
+ * @throws InvalidArgumentException
+ * @throws UnexpectedValueException
  */
 function callMethod($methodName, ...$args)
 {
-    if (!is_string($methodName)) {
-        throw InvalidArgumentException::expectedString('methodName', $methodName);
-    }
+    assertArgumentIsString('methodName', $methodName);
 
     return function ($object) use ($methodName, $args) {
         if (!is_object($object)) {
@@ -81,14 +79,12 @@ function callMethod($methodName, ...$args)
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\InvalidArgumentException
- * @throws \TomPHP\Transform\Exception\UnexpectedValueException
+ * @throws InvalidArgumentException
+ * @throws UnexpectedValueException
  */
 function callStatic($methodName, ...$args)
 {
-    if (!is_string($methodName)) {
-        throw InvalidArgumentException::expectedString('methodName', $methodName);
-    }
+    assertArgumentIsString('methodName', $methodName);
 
     return function ($objectOrClass) use ($methodName, $args) {
 
@@ -96,9 +92,7 @@ function callStatic($methodName, ...$args)
             $reflectedClass = new \ReflectionObject($objectOrClass);
             $subjectObject = $objectOrClass;
         } else {
-            if (!class_exists($objectOrClass)) {
-                throw InvalidArgumentException::expectedValidClassName($objectOrClass);
-            }
+            assertClassExists($objectOrClass);
 
             $reflectedClass = new \ReflectionClass($objectOrClass);
             $subjectObject = null;
@@ -191,12 +185,7 @@ function getProperty($name)
 function argumentTo(callable $callable, array $arguments = [__])
 {
     return function ($value) use ($callable, $arguments) {
-        $arguments = array_map(
-            function ($arg) use ($value) {
-                return $arg === __ ? $value : $arg;
-            },
-            $arguments
-        );
+        $arguments = substituteArguments($arguments, $value);
 
         return $callable(...$arguments);
     };
@@ -209,19 +198,15 @@ function argumentTo(callable $callable, array $arguments = [__])
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\InvalidArgumentException
- * @throws \TomPHP\Transform\Exception\UnexpectedValueException
+ * @throws InvalidArgumentException
+ * @throws UnexpectedValueException
  */
 function prepend($prefix)
 {
-    if (!is_string($prefix)) {
-        throw InvalidArgumentException::expectedString('prefix', $prefix);
-    }
+    assertArgumentIsString('prefix', $prefix);
 
     return function ($value) use ($prefix) {
-        if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
-            throw UnexpectedValueException::expectedString('value', $value);
-        }
+        assertArgumentIsStringable('value', $value);
 
         return $prefix.$value;
     };
@@ -234,18 +219,14 @@ function prepend($prefix)
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ * @throws InvalidArgumentException
  */
 function append($suffix)
 {
-    if (!is_string($suffix)) {
-        throw InvalidArgumentException::expectedString('suffix', $suffix);
-    }
+    assertArgumentIsString('suffix', $suffix);
 
     return function ($value) use ($suffix) {
-        if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
-            throw UnexpectedValueException::expectedString('value', $value);
-        }
+        assertArgumentIsStringable('value', $value);
 
         return $value.$suffix;
     };
@@ -277,24 +258,15 @@ function concat(...$arguments)
  *
  * @return \Closure
  *
- * @throws \TomPHP\Transform\Exception\InvalidArgumentException
+ * @throws InvalidArgumentException
  */
 function newInstance($className, array $arguments = [__])
 {
-    if (!is_string($className)) {
-        throw InvalidArgumentException::expectedString('className', $className);
-    }
-    if (!class_exists($className)) {
-        throw InvalidArgumentException::expectedValidClassName($className);
-    }
+    assertArgumentIsString('className', $className);
+    assertClassExists($className);
 
     return function ($value) use ($className, $arguments) {
-        $arguments = array_map(
-            function ($arg) use ($value) {
-                return $arg === __ ? $value : $arg;
-            },
-            $arguments
-        );
+        $arguments = substituteArguments($arguments, $value);
 
         return new $className(...$arguments);
     };
@@ -316,4 +288,48 @@ function substituteArguments(array $arguments, $value)
         },
         $arguments
     );
+}
+
+/**
+ * @internal
+ *
+ * @param string $name
+ * @param mixed  $value
+ *
+ * @throws InvalidArgumentException
+ */
+function assertArgumentIsString($name, $value)
+{
+    if (!is_string($value)) {
+        throw InvalidArgumentException::expectedString($name, $value);
+    }
+}
+
+/**
+ * @internal
+ *
+ * @param  string $name
+ * @param  mixed $value
+ *
+ * @throws UnexpectedValueException
+ */
+function assertArgumentIsStringable($name, $value)
+{
+    if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+        throw UnexpectedValueException::expectedString($name, $value);
+    }
+}
+
+/**
+ * @internal
+ *
+ * @param  string $className
+ *
+ * @throws InvalidArgumentException
+ */
+function assertClassExists($className)
+{
+    if (!class_exists($className)) {
+        throw InvalidArgumentException::expectedValidClassName($className);
+    }
 }
