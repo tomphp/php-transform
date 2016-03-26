@@ -9,7 +9,7 @@
       "array_map",
       "transform"
     ],
-    "homepage": "https://github.com/tomphp/Transform",
+    "homepage": "https://github.com/tomphp/php-transform",
     "license": "MIT",
     "authors": [
         {
