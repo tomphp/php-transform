@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).<Paste>
 
 ## [Unreleased]
 
+## [0.2.4] - 2015-03-27
+### Added
+- `valueOrDefault()`
+
 ## [0.2.3] - 2016-03-22
 ### Added
 - `concat()`

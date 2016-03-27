@@ -257,3 +257,28 @@ function ($value) {
     return new Widget('first', $value, 'last');
 }
 ```
+
+#### T\valueOrDefault(mixed $default, callable $predicate = null)
+
+```php
+T\valueOrDefault('default')
+
+// Is equivalent to:
+
+function ($value) {
+    return $value ?: 'default';
+}
+```
+
+A predicate function can also be supplied:
+
+```php
+T\valueOrDefault('negative number', function ($value) {
+    return $value >= 0;
+})
+
+// Is equivalent to:
+
+function ($value) {
+    return $value >= 0 ? $value : 'negative number';
+}

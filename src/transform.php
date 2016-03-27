@@ -273,6 +273,27 @@ function newInstance($className, array $arguments = [__])
 }
 
 /**
+ * Returns a transformer which returns the value, or a default value if the
+ * predicate fails when applied on the value. If no predicate is supplied then
+ * a null check is performed.
+ *
+ * @param mixed    $default
+ * @param callable $predicate
+ *
+ * @return \Clojure
+ */
+function valueOrDefault($default, callable $predicate = null)
+{
+    return function ($value) use ($default, $predicate) {
+        if ($predicate === null) {
+            return $value !== null ? $value : $default;
+        }
+
+        return $predicate($value) ? $value : $default;
+    };
+}
+
+/**
  * @internal
  *
  * @param array $arguments
